@@ -1,0 +1,112 @@
+{% load socialaccount %}
+{% providers_media_js %}
+
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De-Quiz</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+</head>
+
+<body>
+    <div class="back">
+        <div id='stars'></div>
+        <div id='stars2'></div>
+        <div id='stars3'></div>
+    </div>
+
+
+
+
+    <div class="navv">
+        <button id='togg_menu'>
+            <span class='bar'></span>
+            <span class='bar'></span>
+            <span class='bar'></span>
+        </button>
+        <img src="{% static 'css/dslogowhitepng.png' %}" alt="logo" height="50px" width="auto"
+            style="float:right; margin-right: 10px;">
+        <header>
+            <ul class='megaMenu'>
+
+                <li>
+                    <a href='#'>Game</a>
+
+                </li>
+                <li>
+                    <a href="{% url 'leaderboard' %}">Leaderboard</a>
+
+                </li>
+                <li><a href='/accounts/logout/'>Logout</a></li>
+
+            </ul>
+        </header>
+
+    </div>
+
+
+    <div class="head">
+        <p>Question {{pk}}</p>
+    </div>
+    <div style="text-align: center; color: aquamarine;">
+        <h3>Your Score : {{score}}</h3>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="box">
+        {% if question.ispic is True %}
+        <div class="imgbox">
+            <img src="{{question.image}}" alt="" />
+        </div>
+
+        {% endif %}
+
+
+        {% if question.islink is True %}
+
+        <p>
+            Link to the video : <br />
+            <a href="{{ question.link }}"> <u>Watch</u></a>
+
+        </p>
+        {% endif %}
+
+        <p>{{question.question}}
+        </p>
+    </div>
+
+    {% if cr == -9 %}
+    <div style="color: red; text-align: center;">
+        <h4>Try Again</h4>
+    </div>
+    {% endif %}
+
+
+    <div class="container">
+
+        <form class="form" name="Response" method="POST">
+            {% csrf_token %}
+            <input type="text" name="Answer" placeholder="Answer">
+
+            <button type="submit" id="login-button">Submit</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
